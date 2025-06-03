@@ -264,3 +264,73 @@ slideGallery.addEventListener('scroll', e => highlightThumbnail());
 
 highlightThumbnail();
 ```
+
+
+
+---
+title: Horizontal & Vertical Gallery
+tags: visual, layout
+---
+
+Creates a horizontally scrollable gallery layout with a primary and a secondary image panel.
+
+```html
+<div class="gallery">
+  <div class="slides">
+    <img src="https://via.placeholder.com/600x400" />
+    <img src="https://via.placeholder.com/600x400" />
+  </div>
+  <div class="thumbnails">
+    <img src="https://via.placeholder.com/150" />
+    <img src="https://via.placeholder.com/150" />
+  </div>
+</div>
+
+
+```md
+```css
+.gallery {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 0.5rem;
+  scroll-snap-type: x mandatory;
+  overflow-x: auto;
+  scroll-padding: 1rem;
+  scrollbar-width: none;
+}
+
+.gallery::-webkit-scrollbar {
+  display: none;
+}
+
+.gallery > .slides,
+.gallery > .thumbnails {
+  display: grid;
+  gap: 0.5rem;
+  scroll-snap-align: start;
+}
+
+.slides > img,
+.thumbnails > img {
+  width: 100%;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .gallery {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .thumbnails {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  .thumbnails > img {
+    flex: 0 0 auto;
+    width: 80px;
+    scroll-snap-align: start;
+  }
+}
